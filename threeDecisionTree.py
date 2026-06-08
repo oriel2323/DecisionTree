@@ -46,3 +46,26 @@ print("Accuracy: ", accuracy)
 print("Precision: ", precision)
 print("Recall: ", recall)
 print("F1-score: ", f1)
+
+
+print("Depth | Accuracy | Precision | Recall | F1-score")
+print("-----------------------------------------------")
+
+
+# we do the same things, but this time we added max_depth 
+# The for loop will go over every iteration and calculate accuracy,precision,recall and f1_score
+for depth in range(1,treeDepth+1):
+    tempTree = DecisionTreeClassifier(criterion="entropy", max_depth = depth, random_state=7)
+    tempTree.fit(XTrain,yTrain)
+
+    yPred = tempTree.predict(XTest)
+
+    accuracy = accuracy_score(yTest,yPred)
+    precision = precision_score(yTest,yPred,average = "macro")
+    recall = recall_score(yTest, yPred, average="macro")
+    f1 = f1_score(yTest, yPred, average="macro")    
+    print(f"{depth:<5} | {accuracy:<8} | {precision:<9} | {recall:<6} | {f1:<8}")
+
+
+
+
